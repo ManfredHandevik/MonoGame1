@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <SourceFile>C:/Programmering/MonoGame1/Content/xwing.jpg</SourceFile>
-  <SourceTime>2026-02-06T13:51:46.422385+01:00</SourceTime>
-  <DestFile>C:/Programmering/MonoGame1/Content/bin/Windows/xwing.xnb</DestFile>
-  <DestTime>2026-02-06T13:51:59.3944847+01:00</DestTime>
+  <SourceFile>c:/Programmering/MonoGame1/Content/../../../Users/maha08005/Downloads/xwing.png</SourceFile>
+  <SourceTime>2026-02-06T15:34:39.4352981+01:00</SourceTime>
+  <DestFile>c:/Programmering/MonoGame1/Content/bin/Windows/xwing.xnb</DestFile>
+  <DestTime>2026-02-06T15:35:10.8221471+01:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2025-10-20T16:25:32+02:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

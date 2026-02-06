@@ -96,7 +96,11 @@ foreach (var enemy in enemies)
         _spriteBatch.Begin();
         foreach (var enemy in enemies)
             {
-                _spriteBatch.Draw(enemyTexture, enemy.Position, Color.White);
+                _spriteBatch.Draw(
+    enemyTexture, 
+    new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, 50, 50), // 50x50 pixlar
+    Color.White
+);
             }
         _spriteBatch.Draw(xWingTexture, xWingPosition, Color.White);
         _spriteBatch.End();

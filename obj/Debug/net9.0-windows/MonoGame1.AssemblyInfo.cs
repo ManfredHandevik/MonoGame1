@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MonoGame1")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+79b28f73c2123c4b8df8fe85334f149014767f59")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9e03da494b05eba590a7b38ca2452e63e8b17442")]
 [assembly: System.Reflection.AssemblyProductAttribute("MonoGame1")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MonoGame1")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
