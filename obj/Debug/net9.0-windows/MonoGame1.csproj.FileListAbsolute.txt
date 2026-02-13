@@ -1,3 +1,5 @@
+C:\Programmering\MonoGame1\bin\Debug\net9.0-windows\Content\ScoreFont.xnb
+C:\Programmering\MonoGame1\bin\Debug\net9.0-windows\Content\tiefighter.xnb
 C:\Programmering\MonoGame1\bin\Debug\net9.0-windows\Content\xwing.xnb
 C:\Programmering\MonoGame1\bin\Debug\net9.0-windows\MonoGame1.exe
 C:\Programmering\MonoGame1\bin\Debug\net9.0-windows\MonoGame1.deps.json
@@ -20,11 +22,10 @@ C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\MonoGame1.GeneratedMSBuildEd
 C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\MonoGame1.AssemblyInfoInputs.cache
 C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\MonoGame1.AssemblyInfo.cs
 C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\MonoGame1.csproj.CoreCompileInputs.cache
+C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\MonoGame1.sourcelink.json
 C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\MonoGame1.csproj.Up2Date
 C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\MonoGame1.dll
 C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\refint\MonoGame1.dll
 C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\MonoGame1.pdb
 C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\MonoGame1.genruntimeconfig.cache
 C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\ref\MonoGame1.dll
-C:\Programmering\MonoGame1\bin\Debug\net9.0-windows\Content\tiefighter.xnb
-C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\MonoGame1.sourcelink.json

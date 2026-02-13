@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System.Windows.Forms.Automation;
 
 namespace MonoGame1;
 
@@ -9,14 +10,19 @@ public class Game1 : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
-
+    SpriteFont gameFont;
     Texture2D xWingTexture;
     Vector2 xWingPosition;
     float speed = 300f;
 
     Texture2D enemyTexture;
     List<Enemy> enemies = new List<Enemy>();
+    int lives = 5;
+        float invincibilityTimer = 0f;
+        float blinkTimer = 0f;
+        bool isVisible = true;
     public Game1()
+    
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
@@ -38,10 +44,22 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-        xWingTexture = Content.Load<Texture2D>("xwing");
-        enemyTexture = Content.Load<Texture2D>("tiefighter");
+    
+    // Vi lägger in fällan runt font-laddningen
+    try 
+    {
+        gameFont = Content.Load<SpriteFont>("ScoreFont");
     }
+    catch (System.Exception ex)
+    {
+        // Om det kraschar, fångar vi felet och skriver ut det i terminalen
+        System.Console.WriteLine("\n--- HITTADE FELET ---");
+        System.Console.WriteLine(ex.Message);
+        System.Console.WriteLine("---------------------\n");
+    }
+    
+    xWingTexture = Content.Load<Texture2D>("xwing");
+    enemyTexture = Content.Load<Texture2D>("tiefighter");
 
     protected override void Update(GameTime gameTime)
     {
@@ -49,7 +67,7 @@ public class Game1 : Game
                 Exit();
         var kstate = Keyboard.GetState();
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
+        
         if (kstate.IsKeyDown(Keys.Up)) xWingPosition.Y -= speed * dt;
         if (kstate.IsKeyDown(Keys.Down)) xWingPosition.Y += speed * dt;
         if (kstate.IsKeyDown(Keys.Left)) xWingPosition.X -= speed * dt;
@@ -74,6 +92,30 @@ if (xWingPosition.Y < -marginY)
 if (xWingPosition.Y > screenHeight - marginY) 
     xWingPosition.Y = screenHeight - marginY;
 
+
+    if (invincibilityTimer > 0)
+        {
+            blinkTimer += dt;
+            if (blinkTimer >= 0.1f)
+            {
+                isVisible = !isVisible;
+                blinkTimer = 0;
+            }
+        }
+        else
+        {
+            isVisible = true;
+        }
+            
+        
+
+Rectangle xWingRect = new Rectangle(
+        (int)xWingPosition.X, 
+        (int)xWingPosition.Y, 
+        xWingTexture.Width, 
+        xWingTexture.Height
+        );
+
 foreach (var enemy in enemies)
             {
                 enemy.Update(gameTime);
@@ -83,7 +125,43 @@ foreach (var enemy in enemies)
                 {
                     enemy.Position.Y = -100;
                 }
+                Rectangle enemyRect = new Rectangle(
+                    (int)enemy.Position.X, 
+                    (int)enemy.Position.Y, 
+                    (int)(enemyTexture.Width * 0.5f), // Skala ner fiende till 50x50 pixlar
+                    (int)(enemyTexture.Height * 0.5f)
+                );
+                if (xWingRect.Intersects(enemyRect) && invincibilityTimer <= 0)
+                {
+                    lives -= 1;
+                    invincibilityTimer = 2f; 
+                    enemy.Position.Y = 1000;
+                }
+                if(enemy.Position.Y > _graphics.PreferredBackBufferHeight)
+                {
+                    enemy.Position.Y = -100;
+                }
+                if(isVisible)
+                {
+                    _spriteBatch.Draw(xWingTexture, xWingPosition, Color.White);
+                }
             }
+            if (invincibilityTimer > 0)
+        {
+            invincibilityTimer -= dt;
+
+            blinkTimer -= dt;
+            if (blinkTimer <= 0)
+            {
+                isVisible = !isVisible;
+                blinkTimer = 0.1f; 
+            }
+        }
+        else
+        {
+            invincibilityTimer = 0;
+            isVisible = true;
+        }
 
         base.Update(gameTime);
 
@@ -102,7 +180,11 @@ foreach (var enemy in enemies)
     Color.White
 );
             }
-        _spriteBatch.Draw(xWingTexture, xWingPosition, Color.White);
+            if(isVisible)
+            {
+                _spriteBatch.Draw(xWingTexture, xWingPosition, Color.White);
+            }
+            _spriteBatch.DrawString(gameFont, "Lives: " + lives, new Vector2(10, 10), Color.Black);
         _spriteBatch.End();
 
         base.Draw(gameTime);

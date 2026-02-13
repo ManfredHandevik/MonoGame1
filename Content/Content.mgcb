@@ -25,6 +25,13 @@
 /processorParam:TextureFormat=Color
 /build:../../../Users/maha08005/Downloads/xwing.png;xwing.png
 
+#begin ScoreFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:ScoreFont.spritefont
+
 #begin tiefighter.jpg
 /importer:TextureImporter
 /processor:TextureProcessor

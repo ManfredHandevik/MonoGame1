@@ -5,10 +5,12 @@
   <Config />
   <SourceFiles>
     <File>C:/Programmering/MonoGame1/Content/../../../Users/maha08005/Downloads/xwing.png</File>
+    <File>C:/Programmering/MonoGame1/Content/ScoreFont.spritefont</File>
     <File>C:/Programmering/MonoGame1/Content/tiefighter.jpg</File>
   </SourceFiles>
   <DestFiles>
     <File>xwing.png</File>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>
