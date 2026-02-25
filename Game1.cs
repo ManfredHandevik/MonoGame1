@@ -124,8 +124,9 @@ foreach (var enemy in enemies)
                 if (xWingRect.Intersects(enemyRect) && invincibilityTimer <= 0)
                 {
                     lives -= 1;
-                    invincibilityTimer = 1f; 
+                    invincibilityTimer = 1.5f; 
                     blinkTimer = 0.1f;
+                    isVisible = false;
                     enemy.Position.Y = -100;
                 }
                 if(enemy.Position.Y > _graphics.PreferredBackBufferHeight)
@@ -209,7 +210,7 @@ public class Enemy
     {
        
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
-        var kstate = Keyboard.GetState();
+        Position.Y += Speed * dt;
    
     }
 }
