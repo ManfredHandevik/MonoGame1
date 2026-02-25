@@ -18,6 +18,7 @@ public class Game1 : Game
     Texture2D enemyTexture;
     List<Enemy> enemies = new List<Enemy>();
     int lives = 5;
+    bool isGameOver = false;
         float invincibilityTimer = 0f;
         float blinkTimer = 0f;
         bool isVisible = true;
@@ -45,28 +46,33 @@ public class Game1 : Game
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
     
-    // Vi lägger in fällan runt font-laddningen
-    try 
-    {
+        gameFont = Content.Load<SpriteFont>("gamefont");
         gameFont = Content.Load<SpriteFont>("ScoreFont");
-    }
-    catch (System.Exception ex)
-    {
-        // Om det kraschar, fångar vi felet och skriver ut det i terminalen
-        System.Console.WriteLine("\n--- HITTADE FELET ---");
-        System.Console.WriteLine(ex.Message);
-        System.Console.WriteLine("---------------------\n");
-    }
     
     xWingTexture = Content.Load<Texture2D>("xwing");
     enemyTexture = Content.Load<Texture2D>("tiefighter");
-
+    }
     protected override void Update(GameTime gameTime)
     {
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-        var kstate = Keyboard.GetState();
+            if (isGameOver)
+            {
+                if (Keyboard.GetState().IsKeyDown(Keys.Enter))
+                {
+                    lives = 5; 
+                    isGameOver = false;
+                    xWingPosition = new Vector2(400, 300);
+                    foreach (var enemy in enemies)
+                    {
+                        enemy.Position.Y = -100; 
+                    }
+                    
+                }
+                return;
+            }
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
+        var kstate = Keyboard.GetState();
         
         if (kstate.IsKeyDown(Keys.Up)) xWingPosition.Y -= speed * dt;
         if (kstate.IsKeyDown(Keys.Down)) xWingPosition.Y += speed * dt;
@@ -91,22 +97,6 @@ if (xWingPosition.Y < -marginY)
     xWingPosition.Y = -marginY;
 if (xWingPosition.Y > screenHeight - marginY) 
     xWingPosition.Y = screenHeight - marginY;
-
-
-    if (invincibilityTimer > 0)
-        {
-            blinkTimer += dt;
-            if (blinkTimer >= 0.1f)
-            {
-                isVisible = !isVisible;
-                blinkTimer = 0;
-            }
-        }
-        else
-        {
-            isVisible = true;
-        }
-            
         
 
 Rectangle xWingRect = new Rectangle(
@@ -134,27 +124,26 @@ foreach (var enemy in enemies)
                 if (xWingRect.Intersects(enemyRect) && invincibilityTimer <= 0)
                 {
                     lives -= 1;
-                    invincibilityTimer = 2f; 
-                    enemy.Position.Y = 1000;
+                    invincibilityTimer = 1f; 
+                    blinkTimer = 0.1f;
+                    enemy.Position.Y = -100;
                 }
                 if(enemy.Position.Y > _graphics.PreferredBackBufferHeight)
                 {
                     enemy.Position.Y = -100;
                 }
-                if(isVisible)
-                {
-                    _spriteBatch.Draw(xWingTexture, xWingPosition, Color.White);
-                }
+                
             }
+            
             if (invincibilityTimer > 0)
         {
             invincibilityTimer -= dt;
-
             blinkTimer -= dt;
             if (blinkTimer <= 0)
             {
                 isVisible = !isVisible;
                 blinkTimer = 0.1f; 
+                
             }
         }
         else
@@ -169,25 +158,40 @@ foreach (var enemy in enemies)
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.White);
+        GraphicsDevice.Clear(Color.White); 
 
-        _spriteBatch.Begin();
-        foreach (var enemy in enemies)
-            {
-                _spriteBatch.Draw(
-    enemyTexture, 
-    new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, 50, 50), // 50x50 pixlar
-    Color.White
-);
-            }
-            if(isVisible)
-            {
-                _spriteBatch.Draw(xWingTexture, xWingPosition, Color.White);
-            }
+    _spriteBatch.Begin();
+if (!isGameOver)
+{
+    foreach (var enemy in enemies)
+    {
+        _spriteBatch.Draw(enemyTexture, new Rectangle((int)enemy.Position.X, (int)enemy.Position.Y, 50, 50), Color.White);
+    }
+
+    if(isVisible)
+    {
+        _spriteBatch.Draw(xWingTexture, xWingPosition, Color.White);
+    }
+}
+else
+{
+    
+    if (gameFont != null)
+    {
+        string text= "GAME OVER!";
+        string restartText = "Press Enter to Restart";
+        _spriteBatch.DrawString(gameFont, text, new Vector2(300, 250), Color.Red);
+        _spriteBatch.DrawString(gameFont, restartText, new Vector2(250, 300), Color.Red);
+    }
+}
+
+if (gameFont != null)
+        {
             _spriteBatch.DrawString(gameFont, "Lives: " + lives, new Vector2(10, 10), Color.Black);
-        _spriteBatch.End();
+        }
+    _spriteBatch.End();
 
-        base.Draw(gameTime);
+    base.Draw(gameTime);
     }
 }
 
@@ -203,8 +207,9 @@ public class Enemy
 
     public void Update(GameTime gameTime)
     {
-        // Här kan vi få dem att röra sig nedåt automatiskt
+       
         float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
-        Position.Y += Speed * dt;
+        var kstate = Keyboard.GetState();
+   
     }
 }

@@ -29,3 +29,4 @@ C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\refint\MonoGame1.dll
 C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\MonoGame1.pdb
 C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\MonoGame1.genruntimeconfig.cache
 C:\Programmering\MonoGame1\obj\Debug\net9.0-windows\ref\MonoGame1.dll
+C:\Programmering\MonoGame1\bin\Debug\net9.0-windows\Content\GameFont.xnb
