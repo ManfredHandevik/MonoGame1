@@ -17,7 +17,7 @@ public class Game1 : Game
     float speed = 400f;
     Random random = new Random();
     float spawnTimer = 0f;
-    float spawnInterval = 3f;
+    float spawnInterval = 1f;
 
     Texture2D bulletTexture;
     List<Bullet> bullets = new List<Bullet>();
@@ -41,7 +41,10 @@ public class Game1 : Game
 
     protected override void Initialize()
     {
-        xWingPosition = new Vector2(400, 300); 
+        xWingPosition = new Vector2(
+            _graphics.PreferredBackBufferWidth / 2f,
+            _graphics.PreferredBackBufferHeight / 2f
+        ); 
         _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
         _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
         _graphics.IsFullScreen = false;
@@ -76,7 +79,10 @@ public class Game1 : Game
                     lives = 5; 
                     score = 0;
                     isGameOver = false;
-                    xWingPosition = new Vector2(400, 300);
+                    xWingPosition = new Vector2(
+                        _graphics.PreferredBackBufferWidth / 2f,
+                        _graphics.PreferredBackBufferHeight / 2f
+                    );
 
                     foreach (var enemy in enemies)
                     {
@@ -163,7 +169,7 @@ if (xWingPosition.Y > screenHeight - marginY)
     }
 
     int hitW = xWingTexture.Width / 2;
-    int hitH = xWingTexture.Height / 3;
+    int hitH = xWingTexture.Height / 2;
     Rectangle xWingRect = new Rectangle(
         (int)xWingPosition.X + (xWingTexture.Width - hitW) / 2,
          (int)xWingPosition.Y + (xWingTexture.Height - hitH) / 2,
